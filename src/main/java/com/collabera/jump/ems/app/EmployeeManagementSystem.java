@@ -279,8 +279,6 @@ public class EmployeeManagementSystem {
 			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("search_employee"));
 			prepStatement.setInt(1, empId);
 			
-//			System.out.println(prepStatement);
-			
 			ResultSet searchEmpResultSet = prepStatement.executeQuery();
 			ResultSetMetaData rsmd = searchEmpResultSet.getMetaData();
 			int columnsNumber = rsmd.getColumnCount();
@@ -304,6 +302,23 @@ public class EmployeeManagementSystem {
 	{				
 		try {
 			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("delete_employee"));
+			prepStatement.setInt(1, empId);
+			
+			System.out.println(prepStatement);
+			
+			int i = prepStatement.executeUpdate();
+			System.out.println("Successfully deleted " + i + " record");
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return;
+	}
+
+	public void updateEmployee(int empId, int empCol, String EmpData)
+	{				
+		try {
+			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("update_employee"));
 			prepStatement.setInt(1, empId);
 			
 			System.out.println(prepStatement);
