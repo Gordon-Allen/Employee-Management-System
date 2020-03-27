@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -214,6 +216,91 @@ public class EmployeeManagementSystem {
 		return false;
 	}
 
+	
+	public boolean searchEmployee(Employee employee) {
+		
+		
+	System.out.println(employee);
+		try {
+			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("add_employee"));
+			
+			//INSERT INTO `empdb`.`employee` (`emp_id`, `emp_ssn`, `emp_email_id`, `emp_name`, `emp_age`, `emp_dob`, `emp_phone_num`, `emp_home_address`, `emp_work_address`, `emp_gender`, `reportsTo`, `isManager`, `emp_tiitle`, `emp_department`) VALUES (<{idemployee: }>, <{emp_id: }>, <{emp_ssn: }>, <{emp_email_id: }>, <{emp_name: }>, <{emp_age: }>, <{emp_dob: }>, <{emp_phone_num: }>, <{emp_home_address: }>, <{emp_work_address: }>, <{emp_gender: }>, <{reportsTo: }>, <{isManager: }>, <{emp_tiitle: }>, <{emp_department: }>);
+		//	(`emp_id`, `emp_ssn`, `emp_email_id`, `emp_name`, `emp_age`, `emp_dob`, `emp_phone_num`, `emp_home_address`, `emp_work_address`, `emp_gender`, `reportsTo`, `isManager`, `emp_tiitle`, `emp_department`)
+			
+		//	('THBS663', '12345678', 'siva@siva.com', 'siva', '34', '05/04/1988', ph, 0, 0, 1, null, 0, 1, 1, ** NOT SPECIFIED **, ** NOT SPECIFIED **)
+			System.out.println(prepStatement);
+			
+			prepStatement.setString(1, employee.getEmpId());
+			prepStatement.setString(2, employee.getSsn()+"");
+			
+			prepStatement.setString(3, employee.getEmail());
+			prepStatement.setString(4, employee.getName());
+			prepStatement.setInt(5, employee.getAge());
+			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			String resultDate = dateFormat.format(employee.getDob());
+			prepStatement.setString(6, resultDate);
+			
+	
+			
+			prepStatement.setString(7, employee.getPhoneNumber());
+			prepStatement.setInt(8, 0); 
+		
+			prepStatement.setInt(9, 0); 
+			
+			GENDER gender = employee.getGender();
+			prepStatement.setInt(10, gender.ordinal());
+			prepStatement.setString(11, null);
+			prepStatement.setBoolean(12, false);
+			
+			JOBTITLE title = employee.getTitle();
+			prepStatement.setInt(13, title.ordinal());
+			
+			
+			DEPARTMENT department = employee.getDepartment();
+			prepStatement.setInt(14, department.ordinal());
+			
+			System.out.println(prepStatement);
+			
+			return prepStatement.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	
+	public void searchEmployee(int empId)
+	{				
+		try {
+			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("search_employee"));
+			prepStatement.setInt(1, empId);
+			
+			System.out.println(prepStatement);
+			
+			ResultSet searchEmpResultSet = prepStatement.executeQuery();
+			ResultSetMetaData rsmd = searchEmpResultSet.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			
+			while (searchEmpResultSet.next()) {
+			    for (int i = 1; i <= columnsNumber; i++) {
+			        if (i > 1) System.out.print(",  ");
+			        String columnValue = searchEmpResultSet.getString(i);
+			        System.out.println(rsmd.getColumnName(i) + ": " + columnValue);
+			    }
+			    System.out.println("");
+		}		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return;
+	}
+
+		
 //	public boolean updateEmployee(Employee employee) {
 //		return employees.put(employee.getEmpId(), employee) != null;
 //	}
@@ -232,6 +319,18 @@ public class EmployeeManagementSystem {
 		}
 
 	}
+	
+	public Employee getEmployeeByIdString(String employeeId) throws EmployeeNotFoundException {
+		Employee employee = employees.get(employeeId);
+
+		if (employee != null) {
+			return employee;
+		} else {
+			throw new EmployeeNotFoundException("Employee with employee ID : " + employeeId + " not found!");
+		}
+
+	}
+
 
 	public Employee getEmployeeBynName(String name) throws EmployeeWithNameNotFoundException {
 		for (Employee employee : employees.values()) {

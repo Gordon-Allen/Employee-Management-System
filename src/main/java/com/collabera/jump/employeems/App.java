@@ -1,6 +1,7 @@
 package com.collabera.jump.employeems;
 
 import com.collabera.jump.ems.app.EmployeeManagementSystem;
+import com.collabera.jump.ems.exceptions.EmployeeNotFoundException;
 import com.collabera.jump.ems.model.Employee;
 import com.collabera.jump.ems.util.ScannerUtil;
 import com.collabera.jump.ems.util.ScannerUtil.Result;
@@ -90,6 +91,11 @@ public class App {
 				break;
 			case 4:
 				System.out.println(4);
+				System.out.println("Please enter employee ID:");
+				
+				option = ScannerUtil.retryUntilSucceeds("Employee ID input: ", TYPES.INT, 10);
+				ems.searchEmployee(option.getValueAsInt());
+				
 				break;
 			case 5:
 				exitFlag = false;
