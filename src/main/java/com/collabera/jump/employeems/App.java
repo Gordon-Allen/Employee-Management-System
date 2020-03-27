@@ -84,7 +84,6 @@ public class App {
 			}
 				break;
 			case 2:
-				System.out.println(2);
 				System.out.println("Please enter Employee's ID that you wish to update:");				
 				option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 10);
 				
@@ -125,6 +124,7 @@ public class App {
 				if (option2.getValueAsInt() == 1)
 				{
 					ems.deleteEmployee(option.getValueAsInt());
+					break;
 				}
 				else
 				{

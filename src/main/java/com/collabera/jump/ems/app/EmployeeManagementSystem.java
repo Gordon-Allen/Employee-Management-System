@@ -302,8 +302,7 @@ public class EmployeeManagementSystem {
 		try {
 			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("delete_employee"));
 			prepStatement.setInt(1, empId);
-			
-			System.out.println(prepStatement);
+		
 			
 			int i = prepStatement.executeUpdate();
 			System.out.println("Successfully deleted " + i + " record");
@@ -369,7 +368,6 @@ public class EmployeeManagementSystem {
 			prepStatement.setString(1, empData);
 			prepStatement.setInt(2, empId);
 			
-			System.out.println(prepStatement);
 			
 			int i = prepStatement.executeUpdate();
 			System.out.println("Successfully Updated " + i + " record");
