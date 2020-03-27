@@ -292,7 +292,6 @@ public class EmployeeManagementSystem {
 			    System.out.println("");
 		}		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return;
@@ -376,7 +375,6 @@ public class EmployeeManagementSystem {
 			System.out.println("Successfully Updated " + i + " record");
 	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return;

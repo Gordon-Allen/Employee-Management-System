@@ -95,22 +95,20 @@ public class App {
 				System.out.println("2. Email Address");
 				System.out.println("3. Employee Name");
 				System.out.println("4. Age");
-				System.out.println("6. Date of Birth");
-				System.out.println("7. Phone Number");
-				System.out.println("8. Home Address");
-				System.out.println("9. Work Address");
-				System.out.println("10. Gender");
-				System.out.println("11. Report To Mgr");
-				System.out.println("11. Is Manager");
-				System.out.println("12. Job Tile");
-				System.out.println("13. Department");
+				System.out.println("5. Date of Birth (mm/dd/yyyy)");
+				System.out.println("6. Phone Number");
+				System.out.println("7. Home Address");
+				System.out.println("8. Work Address");
+				System.out.println("9. Gender ('M' or 'F')");
+				System.out.println("10. Report To Mgr");
+				System.out.println("11. Is Manager ('Y' or 'N'");
+				System.out.println("12. Job Title ('HR', 'DEVELOPER', 'SALES_EXECUTIVE', 'MANAGER', 'TEAM_LEAD')");
+				System.out.println("13. Department ('HR', 'DEVELOPMENT', 'SALES')");
 				
 				Result option2 = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 100);
-
 				
 				System.out.println("Please enter the new information you would like added to your selection record field:");				
 				Result option3 = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.WORD, 100);
-
 
 				ems.updateEmployee(option.getValueAsInt(), option2.getValueAsInt(), (String) option3.getValue());
 				ems.searchEmployee(option.getValueAsInt());
