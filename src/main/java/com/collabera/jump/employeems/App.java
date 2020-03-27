@@ -59,7 +59,6 @@ public class App {
 			}
 
 			Result option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 5);
-			Result option2;
 
 			switch (option.getValueAsInt()) {
 			case 1: {
@@ -93,28 +92,37 @@ public class App {
 				
 				System.out.println("Please select which record field you are updating:");
 				System.out.println("1. SSN");
-				System.out.println("2. Email_ID");
+				System.out.println("2. Email Address");
 				System.out.println("3. Employee Name");
 				System.out.println("4. Age");
 				System.out.println("6. Date of Birth");
 				System.out.println("7. Phone Number");
 				System.out.println("8. Home Address");
 				System.out.println("9. Work Address");
-				System.out.println("5. Gender");
-				System.out.println("5. Report To Mgr");
-				System.out.println("5. Job Tile");
-				System.out.println("5. Department");
+				System.out.println("10. Gender");
+				System.out.println("11. Report To Mgr");
+				System.out.println("11. Is Manager");
+				System.out.println("12. Job Tile");
+				System.out.println("13. Department");
+				
+				Result option2 = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 100);
 
-//				ems.updateEmployee(option.getValueAsInt());
+				
+				System.out.println("Please enter the new information you would like added to your selection record field:");				
+				Result option3 = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.WORD, 100);
+
+
+				ems.updateEmployee(option.getValueAsInt(), option2.getValueAsInt(), (String) option3.getValue());
+				ems.searchEmployee(option.getValueAsInt());
 
 				break;
 			case 3:
 				System.out.println("Please enter Employee's ID that you wish to delete:");				
-				option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 10);
+				option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 100);
 				
 				ems.searchEmployee(option.getValueAsInt());
 				System.out.println("Please confirm if you wish to delete this employee record? 1=Yes or 2=No");
-				option2 = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 10);
+				option2 = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 100);
 				
 				if (option2.getValueAsInt() == 1)
 				{
@@ -126,7 +134,7 @@ public class App {
 				}				
 			case 4:
 				System.out.println("Please enter Employee's ID that you are searching for:");				
-				option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 10);
+				option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 100);
 				ems.searchEmployee(option.getValueAsInt());				
 				break;
 			case 5:

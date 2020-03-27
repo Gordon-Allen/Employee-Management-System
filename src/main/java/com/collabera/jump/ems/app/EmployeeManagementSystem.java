@@ -285,7 +285,7 @@ public class EmployeeManagementSystem {
 			
 			while (searchEmpResultSet.next()) {
 			    for (int i = 1; i <= columnsNumber; i++) {
-			        if (i > 1) System.out.print(",  ");
+			        if (i > 1) System.out.print("");
 			        String columnValue = searchEmpResultSet.getString(i);
 			        System.out.println(rsmd.getColumnName(i) + ": " + columnValue);
 			    }
@@ -315,16 +315,65 @@ public class EmployeeManagementSystem {
 		return;
 	}
 
-	public void updateEmployee(int empId, int empCol, String EmpData)
-	{				
+	public void updateEmployee(int empId, int empCol, String empData)
+	{		
+		
+		String empColSelect = null;
+		
+		switch (empCol) {
+		case 1:
+			empColSelect = "emp_ssn";
+			break;
+		case 2:
+			empColSelect = "emp_email_id";
+			break;
+		case 3:
+			empColSelect = "emp_name";
+			break;
+		case 4:
+			empColSelect = "emp_age";
+			break;
+		case 5:
+			empColSelect = "emp_dob";
+			break;
+		case 6:
+			empColSelect = "emp_phone_num";
+			break;
+		case 7:
+			empColSelect = "emp_home_address";
+			break;
+		case 8:
+			empColSelect = "emp_work_address";
+			break;
+		case 9:
+			empColSelect = "emp_gender";
+			break;
+		case 10:
+			empColSelect = "reportsTo";
+			break;
+		case 11:
+			empColSelect = "isManager";
+			break;
+		case 12:
+			empColSelect = "emp_tiitle";
+			break;
+		case 13:
+			empColSelect = "emp_department";
+			break;
+		default:
+			System.out.println("Invalid Input");
+			break;
+		}
+
 		try {
-			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("update_employee"));
-			prepStatement.setInt(1, empId);
+			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement("UPDATE empdb.employee SET " + empColSelect + "= ? WHERE `emp_id` = ?;");
+			prepStatement.setString(1, empData);
+			prepStatement.setInt(2, empId);
 			
 			System.out.println(prepStatement);
 			
 			int i = prepStatement.executeUpdate();
-			System.out.println("Successfully deleted " + i + " record");
+			System.out.println("Successfully Updated " + i + " record");
 	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
