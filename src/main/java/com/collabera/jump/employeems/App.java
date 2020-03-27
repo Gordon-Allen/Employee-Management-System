@@ -88,14 +88,14 @@ public class App {
 				break;
 			case 3:
 				System.out.println(3);
+				System.out.println("Please enter Employee's ID that you wish to delete:");				
+				option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 10);
+				ems.deleteEmployee(option.getValueAsInt());
 				break;
 			case 4:
-				System.out.println(4);
-				System.out.println("Please enter employee ID:");
-				
-				option = ScannerUtil.retryUntilSucceeds("Employee ID input: ", TYPES.INT, 10);
-				ems.searchEmployee(option.getValueAsInt());
-				
+				System.out.println("Please enter Employee's ID that you are searching for:");				
+				option = ScannerUtil.retryUntilSucceeds("Your input: ", TYPES.INT, 10);
+				ems.searchEmployee(option.getValueAsInt());				
 				break;
 			case 5:
 				exitFlag = false;

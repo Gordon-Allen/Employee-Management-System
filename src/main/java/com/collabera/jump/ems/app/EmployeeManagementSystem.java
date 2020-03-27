@@ -279,7 +279,7 @@ public class EmployeeManagementSystem {
 			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("search_employee"));
 			prepStatement.setInt(1, empId);
 			
-			System.out.println(prepStatement);
+//			System.out.println(prepStatement);
 			
 			ResultSet searchEmpResultSet = prepStatement.executeQuery();
 			ResultSetMetaData rsmd = searchEmpResultSet.getMetaData();
@@ -293,6 +293,24 @@ public class EmployeeManagementSystem {
 			    }
 			    System.out.println("");
 		}		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return;
+	}
+
+	public void deleteEmployee(int empId)
+	{				
+		try {
+			PreparedStatement prepStatement = DBUtil.getConnection().prepareStatement(DBUtil.properties.getProperty("delete_employee"));
+			prepStatement.setInt(1, empId);
+			
+			System.out.println(prepStatement);
+			
+			int i = prepStatement.executeUpdate();
+			System.out.println("Successfully deleted " + i + " record");
+	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
